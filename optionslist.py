@@ -1,0 +1,26 @@
+from options import *
+
+
+option('auto', jauto, False)
+option('mosfet', mos_con, False )
+poption('mosfet', 'm')
+option('autom', jautom, False)
+option('noise', noisetest, True)
+option('gtime', gtime, True)
+option('sen', autotest, False)
+option('vac', vac, False)
+option("mGRBL", grbl_send, True)
+option('script', script, True)
+poption('script', 'g')
+poption('script', 'mg')
+option("mTLC", tlc_send, True)
+option("stage", tlc_stage, True)
+option("servo", tlc_servo1, True)
+option("servo2", tlc_servo2, True)
+option("loop", tlc_loop1, True)
+option("init", tlc_initsafe, False)
+option ("setsafe", tlc_setsafe, False)
+option ("part", jpartial, False)
+option ("s5", tlc_stage5, True)
+option ("s2", tlc_stage2, True)
+
