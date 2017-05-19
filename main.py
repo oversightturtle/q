@@ -31,11 +31,16 @@ commit() # wakes up grbl.
 
 from mosfet import *
 
-mos_init() # sets all relay to OFF
+#sets all relay to OFF, if possible
+try:
+    mos_init()
+except NameError:
+    pass
 
 while True:
-    mos_p_short()
 
+    mos_p_short()
+        
     commit()
     print "\nWelcome! >> availible options:"
     
