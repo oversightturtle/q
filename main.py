@@ -31,6 +31,8 @@ commit() # wakes up grbl.
 
 from mosfet import *
 
+mos_init() # sets all relay to OFF
+
 while True:
     mos_p_short()
 

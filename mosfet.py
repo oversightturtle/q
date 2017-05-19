@@ -34,6 +34,10 @@ mosfet("test1", 6)
 mosfet("test2", 5)
 mosfet("test3", 4)
 
+def mos_init():
+    for x in mosfet.instances:
+        x.mos_off()
+
 def mos_p_long():
     s_init = False
     for x in mosfet.instances:

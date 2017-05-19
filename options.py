@@ -106,6 +106,8 @@ def script():
         operatestage(xs[1])
     elif xs[0] == 'read':
 		pass
+    elif xs[0] == 'auto':
+        looper(True)
     elif xs[0] == 'power':
         p_exist = False
         if xs[1] == 'on':
