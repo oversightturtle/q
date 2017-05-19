@@ -80,6 +80,9 @@ def gtime():
         zloc += int(n)
         movez_ins_del(float(zloc), float(d))
 
+def testest():
+    pass
+
 def jauto():
     looper(h = True)
 
@@ -98,7 +101,7 @@ def script():
     if ss_init == False:
         ss_init == True
         mos_p_aline()
-    sc = raw_input(' >> ')
+    sc = raw_input('g >> ')
     xs = sc.split()
     if sc == 'vac':
         vac()
@@ -217,3 +220,23 @@ def tlc_jointset(delay, servo1pin, servo1safe, servo2pin, servo2safe):
 
 #try:
 #    tlc_jointset(3,3,3,3,3)
+
+def opt_print():
+    for x in option.instances:
+        print x.name,
+        
+        #list out all aliases below
+        exist = False
+        for y in poption.instances:
+            if y.upper == x.name:
+                exist = True
+        #lists out all aliases
+        if exist == True:
+            print "(",
+        
+        for y in poption.instances:
+            if y.upper == x.name:
+                print y.name,
+
+        if exist == True:
+            print ")",    

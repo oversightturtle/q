@@ -46,9 +46,9 @@ def mos_p_long():
             print "power state: "
         print x.name, 
         if x.status == True:
-            print colored("[ON]", "green", attrs=['bold'])
+            print colored("\t[ON]", "green", attrs=['bold'])
         else:
-            print colored("[OFF]", "red", attrs=['bold'])
+            print colored("\t[OFF]", "red", attrs=['bold'])
 
 def mos_p_aline():
     s_init = False

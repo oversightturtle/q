@@ -23,4 +23,5 @@ option ("setsafe", tlc_setsafe, False)
 option ("part", jpartial, False)
 option ("s5", tlc_stage5, True)
 option ("s2", tlc_stage2, True)
+option ("test", testest, False)
 

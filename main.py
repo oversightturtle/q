@@ -37,34 +37,24 @@ try:
 except NameError:
     pass
 
+disp_opt = True
+
 while True:
 
-    mos_p_short()
         
     commit()
-    print "\nWelcome! >> availible options:"
-    
+
     # list out all available options  below 
-    for x in option.instances:
-        print x.name,
-        
-        #list out all aliases below
-        exist = False
-        for y in poption.instances:
-            if y.upper == x.name:
-                exist = True
-        #lists out all aliases
-        if exist == True:
-            print "(",
-        
-        for y in poption.instances:
-            if y.upper == x.name:
-                print y.name,
+    if disp_opt == True:
 
-        if exist == True:
-            print ")",        
+        mos_p_short()
 
-    a = raw_input('\nINPUT >> ')
+        print "\navailible options:"
+        opt_print()    
+
+        print "\n\n"
+
+    a = raw_input('main >> ')
     
     net = False # bool function that states weather a valid function has been inputted
     
@@ -78,9 +68,10 @@ while True:
     #executes the command
     for x in (option.instances):
         if a == x.name:
-            print "!" 
+  #          print "!" 
             net = True
             if x.loop == False:
+                disp_opt = False # does not reprint options
                 x.func() ###
             elif x.loop == True:
                 try:
