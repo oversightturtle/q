@@ -27,21 +27,26 @@ def config():
             # tests if found active testport is a tlc
             try:
                 tlc_canidate = serial.Serial('/dev/ttyACM%d' %x,
-                baudrate=9600, timeout=3)
-                tlc_canidate.write("55")
+                baudrate=9600, timeout=10)
+                tlc_canidate.write("\r\n\r\n")
+                time.sleep(2)
                 tlc_canidate.reset_input_buffer()
+                tlc_canidate.write("55")
                 testcan = tlc_canidate.read(5)
+       #         print testcan, " >done>"
                 if testcan == '00000':
                     #confirms tlc
                     as_numfound += 1
                     tlc_canidate.close()
                     global tlc
                     tlc = serial.Serial('/dev/ttyACM%d' %x, 9600, timeout=3)
-
+                    print "tlc  @ ttyACM%d" % x, "@ 9600"
+                    as_tp_active = False
             except serial.SerialException:
                 tlc_canidate.close()
                 pass
-            
+        
+        if as_tp_active:
             #tests if found active testport is a grbl
             try:
                 grbl_canidate = serial.Serial('/dev/ttyACM%d' %x,
@@ -62,7 +67,7 @@ def config():
                     grbl = serial.Serial('/dev/ttyACM%d' %x,
                     baudrate = 115200)
                     print "grbl @ ttyACM%d" % x, "@ 115200" 
-
+                    as_tp_active == False
             except serial.SerialException:
                 grbl_canidate.close()
                 pass

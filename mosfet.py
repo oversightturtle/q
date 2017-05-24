@@ -20,14 +20,14 @@ class mosfet:
         mosfet.instances.append(self)
 
     def mos_on(self):   
-        grbl.write("M42 P%d S0" %pin)
+        grbl.write("M42 P%d S0" %self.pin)
         commit()
-        status[ x ] = True
+        self.status = True
             
     def mos_off(self):
-        grbl.write("M42 P%d S255" %pin)
+        grbl.write("M42 P%d S255" %self.pin)
         commit()
-        status[ x ] = False
+        self.status = False
 
 mosfet("test0", 11)
 mosfet("test1", 6)
