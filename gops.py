@@ -40,7 +40,7 @@ gloc_z = 0
 gloc_tran = 1
 gloc_acc = 0.5
 gloc_acc_fast = 0
-gloc_rate = 0.05
+gloc_rate = 0.34
 
 def movez_instant( new ):
     grbl.write(b"G1 Z%f" %new)
@@ -68,6 +68,7 @@ def movex_ins_del( new , delay ):
     return 
 
 def movez_ins_del( new , delay ):
+    "test docstring"
     grbl.write(b"G1 Z%f" %new)
     print (b"G1 Z%f" %new)
 
@@ -77,10 +78,11 @@ def movez_ins_del( new , delay ):
     return
 
 def movex ( new ):
+    commit()
     grbl.write(b"G1 Y%f" %new)
-    print (b"G1 Y%f" %new)
+    print (b"g_mx << G1 Y%f" %new)
 
-    wait = gloc_tran + (2 * gloc_acc) + (gloc_rate * abs(gloc_x - new))
+    wait = gloc_tran + (2 * gloc_acc) + (gloc_rate *  abs(gloc_x - new))
 
     commit()
     time.sleep( wait )
@@ -88,7 +90,7 @@ def movex ( new ):
 
 def movez ( new ):
     grbl.write(b"G1 Z%f" %new)
-    print (b"G1 Z%f" %new)
+    print (b"g_mz << G1 Z%f" %new)
 
     wait = gloc_tran + (2 * gloc_acc) + (gloc_rate * abs(gloc_z - new))
 
@@ -134,8 +136,9 @@ def movez_old ( int ):
  
 def movexz (x, y):
     grbl.write(b"G1 Y%f Z%f" %(x, y))
-    print (b"G1 Y%f Z%f" %(x, y))
-    dcommit()
+    print (b"g_mxz >> G1 Y%f Z%f" %(x, y))
+    time.sleep(2)
+    commit()
     return
 
 def mv (axis, location):

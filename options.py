@@ -12,13 +12,15 @@ import time
 
 from pri import partz
 
-from gops import movez_ins_del, homez, movez, commit, dcommit, vac_on, vac_off
+from gops import movez_ins_del, homez, movez, commit, dcommit, vac_on, vac_off, movez_instant
 
 from tops import operateservo, operatestage
 
 from auto import looper, autotest
 
 from mosfet import *
+
+from setup import config
 
 vacstate = False
 safeloc = False
@@ -55,9 +57,12 @@ def mos_con():
 
 def noisetest():
     homez()
+    ign = raw_input("press any key after homing is complete")
     while True:
-        movez(20)
-        movez(60)
+        movez_instant(20)
+        time.sleep(7)
+        movez_instant(40)
+        time.sleep(7)
 
 def vac():
     global vacstate
@@ -100,17 +105,22 @@ ss_init = False
 def script():
     if ss_init == False:
         ss_init == True
-        mos_p_aline()
+    #    mos_p_aline()
     sc = raw_input('g >> ')
     xs = sc.split()
     if sc == 'vac':
         vac()
     elif xs[0] == 'stage':
-        operatestage(xs[1])
+        operatestage(int(xs[1]))
     elif xs[0] == 'read':
 		pass
     elif xs[0] == 'auto':
         looper(True)
+    else:
+        print "found"
+        grbl.write(sc)
+        dcommit()
+'''
     elif xs[0] == 'power':
         p_exist = False
         if xs[1] == 'on':
@@ -130,11 +140,8 @@ def script():
             
         if p_exist == False:
             print "could not recognize the name"
-            
-    else:
-        print "found"
-        grbl.write(sc)
-        dcommit()
+'''       
+
 
 
 def tlc_send():

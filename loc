@@ -1,0 +1,11 @@
+init
+G28 Z
+G28 Y
+stage 19
+G0 Z55 **
+vac
+G0 Z33
+G0 Z50
+vac
+G0 Z30
+G0 Y6

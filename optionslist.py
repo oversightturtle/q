@@ -2,6 +2,7 @@ from options import *
 
 
 option('auto', jauto, False)
+option('connect', config, False)
 option('mosfet', mos_con, False )
 poption('mosfet', 'm')
 option('autom', jautom, False)

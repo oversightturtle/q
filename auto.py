@@ -178,8 +178,64 @@ def pri_loop():
     )
     
 
-
 def primary():
+    tstage(19)
+    movex(6)
+    movez(50) ## calibrate
+
+    g_old = 50
+    g_new = 49
+    g_c_escape = False
+    while g_c_escape == False:
+        while g_old != g_new:
+            a = raw_input("manually calibrbate the z value >> ")
+            movez_instant(float(a))
+            g_old = g_new
+            g_new = a
+        vac_on()
+        time.sleep(1)
+        movez_instant(40)
+        a = raw_input("type 40 to confirm >> ")
+        if int(a) == 40:
+            g_c_escape = True
+        g_old = 50
+        g_new = 49
+
+    vac_on()
+    time.sleep(1)
+    movez(30)
+    movex(19)
+    movez(48)
+    vac_off()
+    time.sleep(1)
+    movexz(13, 35)
+    tstage(20)
+    time.sleep(1)
+    movexz(14, 45)
+    movex(19)
+    movez_ins_del(51, 2)
+    movez_ins_del(48, 2)
+    movex(21)
+    movez_ins_del(51, 2)
+    movez_ins_del(48, 2)
+    movex(14)
+    tstage(25)
+    for x in range (0, 30):
+        time.sleep(1)
+        print "waiting > ", x
+    movex(19)
+    movez_ins_del(52, 2)
+    vac_on()
+    time.sleep(1)
+    tstage(26)
+    movez_ins_del(45, 2)
+    movexz(14, 32)
+    movez(15)
+    movex(32)
+    vac_off()
+    time.sleep(1)
+
+def primary_OLD():
 
     tstage(19)###
     movez(150)
@@ -215,26 +271,28 @@ def primary():
 
 def home():
 #startup and homing sequence
+    tlc_initsafe()
+    time.sleep(2)
     print "Automation Started"
     print "Homing Z axis"
 #    grbl.write("G28 Z\r\n".encode())
     grbl.write("G28 Z")
     commit()
-    time.sleep(12)
+    try:
+        a = input(" push any key to continue >> ")
+    except SyntaxError:
+        pass
 
 # you need to manually tell computer when homing is done
     print "Homing Y axis"
 #    grbl.write("G28 Y\r\n".encode())
     grbl.write("G28 Y")
     commit()
-    time.sleep(6)
-
-    print "Homing complete"
     try:
         a = input(" push any key to continue >> ")
     except SyntaxError:
         pass
-
+        
 isHomed = False
 
 def looper(h = True):
@@ -245,13 +303,16 @@ def looper(h = True):
         isHomed = True
     init = False
     while True:
+        primary()
+'''
+    while True:
         if init == False:
             pri_init()
             init = True
         else :
             pri_loop()
         primary()
-
+'''
 
 
 

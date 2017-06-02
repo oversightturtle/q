@@ -31,30 +31,39 @@ commit() # wakes up grbl.
 
 from mosfet import *
 
-#sets all relay to OFF, if possible
-try:
-    mos_init()
-except NameError:
-    pass
+'''
+todo:
+1. 
+'''
 
-disp_opt = True
 
-while True:
 
-        
+
+def main():
     commit()
-
+    print "\nWelcome! >> availible options:"
+    
     # list out all available options  below 
-    if disp_opt == True:
+    for x in option.instances:
+        print x.name,
+        
+        #list out all aliases below
+        exist = False
+        for y in poption.instances:
+            if y.upper == x.name:
+                exist = True
+        #lists out all aliases
+        if exist == True:
+            print "(",
+        
+        for y in poption.instances:
+            if y.upper == x.name:
+                print y.name,
 
-        mos_p_short()
+        if exist == True:
+            print ")",        
 
-        print "\navailible options:"
-        opt_print()    
-
-        print "\n\n"
-
-    a = raw_input('main >> ')
+    a = raw_input('\nINPUT >> ')
     
     net = False # bool function that states weather a valid function has been inputted
     
@@ -68,10 +77,9 @@ while True:
     #executes the command
     for x in (option.instances):
         if a == x.name:
-  #          print "!" 
+       #     print "!" 
             net = True
             if x.loop == False:
-                disp_opt = False # does not reprint options
                 x.func() ###
             elif x.loop == True:
                 try:
@@ -85,3 +93,14 @@ while True:
             break
     if net == False:
         print " >> command not found"
+
+
+def main_loop():
+    while True:
+        try:
+            main()
+        except IndexError: # ignores an "enter" key press without inputting a new command
+            pass
+
+if __name__ == "__main__":
+    main_loop()
