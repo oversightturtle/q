@@ -1,5 +1,9 @@
 import time
 
+import config
+
+if config.con_VIRTUAL == True:
+    from virtual import tlc
 
 try:
     from setup import tlc

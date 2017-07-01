@@ -2,13 +2,13 @@ from options import *
 
 
 option('auto', jauto, False)
-option('connect', config, False)
+option('connect', tty_config, False)
 option('mosfet', mos_con, False )
 poption('mosfet', 'm')
 option('autom', jautom, False)
 option('noise', noisetest, True)
 option('gtime', gtime, True)
-option('sen', autotest, False)
+option('sen', read_pps, False)
 option('vac', vac, False)
 option("mGRBL", grbl_send, True)
 option('script', script, True)

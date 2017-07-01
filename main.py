@@ -1,9 +1,14 @@
 print "\nGRBL/TLC > Automater > Welcome!\n"
 
+import config
+
+if config.con_VIRTUAL == True:
+    from virtual import grbl, tlc
+
 import time
 
-from setup import config
-config()
+from setup import tty_config
+tty_config()
 
 from termcolor import colored
 
@@ -12,14 +17,23 @@ print "\n",
 try:
     from setup import tlc
 except ImportError:
-    print "tlc\t", colored("[NOT FOUND]", "red")
+    if config.con_VIRTUAL == False:
+        print "tlc\t", colored("[NOT FOUND]", "red")
+    else:
+        print "tlc\t", colored("[VIRTUAL]", "yellow")
     pass
 
 try:
     from setup import grbl
 except ImportError:
-    print "main\t", colored("[NOT FOUND]", "red")
+    if config.con_VIRTUAL == False:
+        print "grbl\t", colored("[NOT FOUND]", "red")
+    else:
+        print "grbl\t", colored("[VIRTUAL]", "yellow")
     pass
+
+if config.con_VAC == False:
+    print colored("VAC DISABLED",  "white", "on_red")
  
 from auto import *  #looper
 
@@ -27,41 +41,14 @@ from options import *
 
 from optionslist import *
 
-commit() # wakes up grbl.
-
 from mosfet import *
 
-'''
-todo:
-1. 
-'''
-
-
-
-
 def main():
-    commit()
-    print "\nWelcome! >> availible options:"
-    
-    # list out all available options  below 
-    for x in option.instances:
-        print x.name,
-        
-        #list out all aliases below
-        exist = False
-        for y in poption.instances:
-            if y.upper == x.name:
-                exist = True
-        #lists out all aliases
-        if exist == True:
-            print "(",
-        
-        for y in poption.instances:
-            if y.upper == x.name:
-                print y.name,
 
-        if exist == True:
-            print ")",        
+    commit() # wakes up grbl
+
+    print "\nWelcome! >> availible options:"
+    pOpt()
 
     a = raw_input('\nINPUT >> ')
     
@@ -93,7 +80,6 @@ def main():
             break
     if net == False:
         print " >> command not found"
-
 
 def main_loop():
     while True:

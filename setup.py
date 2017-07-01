@@ -1,7 +1,7 @@
 import serial
 import time
 
-def config():
+def tty_config():
     as_maxrange = 6
     as_numfound = 0
     as_tp_active = False
@@ -12,9 +12,6 @@ def config():
             print s
         
     for x in range (0, as_maxrange):
-        # closes port in case of multiple instances
-        
-        
         # determines weather a port is open
         as_tp_active = False
         try:
@@ -71,8 +68,3 @@ def config():
             except serial.SerialException:
                 grbl_canidate.close()
                 pass
-    # print as_numfound
-
-# config()
-
-

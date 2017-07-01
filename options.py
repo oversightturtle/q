@@ -12,15 +12,15 @@ import time
 
 from pri import partz
 
-from gops import movez_ins_del, homez, movez, commit, dcommit, vac_on, vac_off, movez_instant
+from gops import movez_ins_del, homez, movez, commit, vac_on, vac_off, movez_instant
 
 from tops import operateservo, operatestage
 
-from auto import looper, autotest
+from auto import *
 
 from mosfet import *
 
-from setup import config
+from setup import tty_config
 
 vacstate = False
 safeloc = False
@@ -49,6 +49,27 @@ class poption:
         self.upper = upper
         poption.instances.append(self)
 
+def pOpt():
+    # list out all available options  below 
+    for x in option.instances:
+        print x.name,
+        
+        #list out all aliases below
+        exist = False
+        for y in poption.instances:
+            if y.upper == x.name:
+                exist = True
+        #lists out all aliases
+        if exist == True:
+            print "(",
+        
+        for y in poption.instances:
+            if y.upper == x.name:
+                print y.name,
+
+        if exist == True:
+            print ")",     
+
 def mos_con():
     # switchboard to all omsfet relatetd functions
     mos_p_long()
@@ -74,7 +95,7 @@ def vac():
         vacstate = False
 
 def sen():
-    autotest()
+    read_pps()
 
 zloc = 0
 def gtime():
@@ -119,7 +140,7 @@ def script():
     else:
         print "found"
         grbl.write(sc)
-        dcommit()
+        commit()
 '''
     elif xs[0] == 'power':
         p_exist = False
