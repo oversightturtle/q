@@ -29,7 +29,7 @@ safeloc = False
 
 def checkloc():
     if safeloc == False:
-        print "CAUTION ! YOU HAVE NOT INITALIZED THE INITAL POSITION TO SAFE"
+        print colored("[WARNING]", "red", attrs=['bold']), colored("YOU HAVE NOT INITALIZED THE INITAL POSITION TO SAFE", "red")
 
 
 

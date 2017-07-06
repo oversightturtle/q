@@ -87,15 +87,11 @@ def primary():
     vac_off()
     time.sleep(1)
     movez(43)
+
     movexz_instant(13, 35)
     time.sleep(5)
-    tstage(20)
-    verbose_wait(7)
-    movexz_instant(14, 45)
-    time.sleep(5)
-
     tstage(25)
-    verbose_wait(42)# 40 + e
+    verbose_wait(50)# 40 + e
 
     movex(19)
     movez_ins_del(52, 2)
@@ -104,49 +100,58 @@ def primary():
     # stage 27 >
     tstage(26)
     movez_ins_del(45, 2)
-    movexz_instant(14, 32)
+    movexz_instant(14, 25)
     time.sleep(6)
     movez(15)
+    print "dead ### INTERVENE HERE"
+    verbose_wait(10)
+    tstage(29) # END HERE
     # END HERE -- DELETE AFTER
-    movex(1)
-    vac_off()
-    time.sleep(1)
-    # stage 29??? >
-    print " ***** >> END OF SEQUENCE << ***** "
 
     '''
-    movex(###)
-    movez(###)
-    movex()
-    vac off
-    movez()
-    stage33
-    movez
-    stage36
-    movez
-    stage37ish
-    movez down
+    # stage 3   
+    movex(###) #pre
+    movez(###)#drop pre
+    movex()# move in s3
+    vac off # drop s3
+    movexz_instant(,) # move up forto avoid conflict
+    time.sleep() # wait for move
+    stage 30 # lowers upclose
+    movez() # CHECK THIS # LOWER TO HOLD
+    stage33 # fold to safes
+    movez # move up
+    stage36 #clsoe and fold
+    verbose_Wait( ##### ) # wait for stage
+    movexz_instant(,) # move to collect +e
+    down movez # moveem down
     vac on
     movex
-    movez
+    movez # up and to stage 4
+
+MOVE TO STAGE 4
+    movex
+    movez down
     movex roller
     vac off
-    movez
-    movex
-    movexz out
-    stage roll
-    move xz
+    movez uplow
+    movexz away
+    STAGEROLL    
+    move xz uploiw
+    movez downhit
     vac on
     movex off
     movez up
 
-    # REPEAT
+    # REPEAT S3
     # END REPEAT
     
     movez up
     movex 999...
     vac off
     '''
+
+    print " ***** >> END OF SEQUENCE << ***** "
+ 
 
 def home():
 #startup and homing sequence
