@@ -6,6 +6,8 @@ tstage = operatestage
 
 pickuplevel = 0
 
+# 99.5 >> 46.5
+# Z OFFSET -> + 53
 try:
     from setup import grbl
 except ImportError:
@@ -81,7 +83,7 @@ def primary():
 
     print " ***** >> START OF AUTOSEQ << ***** "
     time.sleep(1)
-    movez(30)
+    movez(25)
     movex(19)
     movez(48)
     vac_off()
@@ -94,12 +96,13 @@ def primary():
     verbose_wait(50)# 40 + e
 
     movex(19)
-    movez_ins_del(52, 2)
+    movez_ins_del(51, 2)
     vac_on()
     time.sleep(1)
     # stage 27 >
     tstage(26)
-    movez_ins_del(45, 2)
+    time.sleep(1)
+    movez_ins_del(46, 2)
     movexz_instant(14, 25)
     time.sleep(6)
     movez(15)
