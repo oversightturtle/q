@@ -8,6 +8,9 @@ pickuplevel = 0
 
 # 99.5 >> 46.5
 # Z OFFSET -> + 53
+
+ZOFFSET = 53
+
 try:
     from setup import grbl
 except ImportError:
@@ -50,18 +53,6 @@ def read_pps():
             return 2
 
 hip_last = None
-
-def pri_loop():
-
-    movex(3)
-    global pickuplevel
-    vac_on()
-    autoposition(
-        initial = pickuplevel,
-        offset = 28,
-        limit = 267,
-        inc = 0.25
-    )
     
 def verbose_wait(delaytime):
     for x in range (0, delaytime):
@@ -83,33 +74,41 @@ def primary():
 
     print " ***** >> START OF AUTOSEQ << ***** "
     time.sleep(1)
-    movez(25)
+    movez(25 + ZOFFSET)
     movex(19)
-    movez(48)
+    movez(48 + ZOFFSET)
     vac_off()
     time.sleep(1)
-    movez(43)
+    movez(43 + ZOFFSET)
 
-    movexz_instant(13, 35)
+    movexz_instant(13, 35 + ZOFFSET)
     time.sleep(5)
-    tstage(25)
-    verbose_wait(50)# 40 + e
+    tstage(25) # 45 SECONEDS
+    verbose_wait(25)# 40 + e
 
-    movex(19)
-    movez_ins_del(51, 2)
+    movex(18.65)
+    movez(97) # 93.5 ???  99 !!
+    tstage(26)
+    verbose_wait(15)
+
+    movez_ins_del(50 + ZOFFSET, 2) # 100.5
     vac_on()
     time.sleep(1)
     # stage 27 >
-    tstage(26)
-    time.sleep(1)
-    movez_ins_del(46, 2)
-    movexz_instant(14, 25)
+    tstage(27)
     time.sleep(6)
-    movez(15)
+    ### Z40 UP MOVE SX LOW
+
+    movez_ins_del(44 + ZOFFSET, 2)
+    movexz_instant(14, 20 + ZOFFSET)
+    time.sleep(6)
+    movez(15 + ZOFFSET)
+    tstage(29) # END HERE
+    
+    # END HERE -- DELETE AFTER
+
     print "dead ### INTERVENE HERE"
     verbose_wait(10)
-    tstage(29) # END HERE
-    # END HERE -- DELETE AFTER
 
     '''
     # stage 3   
@@ -183,7 +182,7 @@ def home():
     movex_fast(6)
 
     # initial z value for homing
-    hip_init = 46.4
+    hip_init = (46.4 + ZOFFSET)
     # homing increment for each step
     hip_inc_05= 0.6
     hip_inc_0005 = 0.15

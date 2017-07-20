@@ -10,6 +10,8 @@ import config
 if config.con_VIRTUAL == True:
     from virtual import grbl
 
+from termcolor import colored
+
 def commit():
     "Sends \r\n\r\n to grbl as required for proper functioning"
     try:
@@ -59,8 +61,11 @@ def g_wpcs(axis, location, delay = False):
 
     if delay == True:
         if axis == "x":
-            wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_x *  abs(gloc_x - location))
-            time.sleep( wait )
+            if int(location) <= 100:
+                wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_x *  abs(gloc_x - location))
+                time.sleep( wait )
+            else:
+                print colored("[DANGER] out of bounds", "red")
         if axis == "z":
             wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_z * abs(gloc_z - location))
             time.sleep( wait )

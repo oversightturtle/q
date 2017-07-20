@@ -67,7 +67,10 @@ def main():
        #     print "!" 
             net = True
             if x.loop == False:
-                x.func() ###
+                try:
+                    x.func() ###
+                except KeyboardInterrupt:
+                    print "... halting >> "
             elif x.loop == True:
                 try:
                     while 1 == 1:
