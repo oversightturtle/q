@@ -60,6 +60,7 @@ def verbose_wait(delaytime):
         print "waiting > ", x
 
 def primary():
+    '''
     tstage(19)
     movex(6)
     cali_escape = False
@@ -86,12 +87,12 @@ def primary():
     tstage(25) # 45 SECONEDS
     verbose_wait(25)# 40 + e
 
-    movex(18.65)
-    movez(97) # 93.5 ???  99 !!
+    movex(19)
+    movez(96.5)
     tstage(26)
     verbose_wait(15)
 
-    movez_ins_del(50 + ZOFFSET, 2) # 100.5
+    movez_ins_del(101)
     vac_on()
     time.sleep(1)
     # stage 27 >
@@ -99,8 +100,8 @@ def primary():
     time.sleep(6)
     ### Z40 UP MOVE SX LOW
 
-    movez_ins_del(44 + ZOFFSET, 2)
-    movexz_instant(14, 20 + ZOFFSET)
+    movez_ins_del(98, 2)
+    movexz_instant(14, 60)
     time.sleep(6)
     movez(15 + ZOFFSET)
     tstage(29) # END HERE
@@ -109,49 +110,107 @@ def primary():
 
     print "dead ### INTERVENE HERE"
     verbose_wait(10)
-
     '''
-    # stage 3   
-    movex(###) #pre
-    movez(###)#drop pre
-    movex()# move in s3
-    vac off # drop s3
-    movexz_instant(,) # move up forto avoid conflict
-    time.sleep() # wait for move
-    stage 30 # lowers upclose
-    movez() # CHECK THIS # LOWER TO HOLD
-    stage33 # fold to safes
-    movez # move up
-    stage36 #clsoe and fold
-    verbose_Wait( ##### ) # wait for stage
-    movexz_instant(,) # move to collect +e
-    down movez # moveem down
-    vac on
-    movex
-    movez # up and to stage 4
-
-MOVE TO STAGE 4
-    movex
-    movez down
-    movex roller
-    vac off
-    movez uplow
-    movexz away
-    STAGEROLL    
-    move xz uploiw
-    movez downhit
-    vac on
-    movex off
-    movez up
-
-    # REPEAT S3
-    # END REPEAT
     
-    movez up
-    movex 999...
-    vac off
-    '''
+    movex(19)
+    movez(97)
+    tstage(26)
+    verbose_wait(4)
+    movez(101)
+    vac_on()
+    movez(97)
+    movexz_instant(9, 50)
+    time.sleep(10)
+    tstage(29)
+    movez(20)
+    movex(52)
 
+    #STAGE 3
+    
+    movex(52)
+    tstage(30)
+    movez(104.8)
+    movex(50.8)
+    movex(46.35)
+    vac_off()
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(10)
+    tstage(31)
+    movexz_instant(48, 101) ## CHECK BELOW MOVE Y?!?!?
+    verbose_wait(3)
+    movez(105)
+    tstage(33) # set to safe
+    movez(100)
+    movexz_instant(60, 90) ### PROBLEM S4 SAFEPLACE PUSHDOWN NOT HIGH ENOUGH
+    # REDO THE STAGE +- 5 LINES
+    verbose_wait(8) # CHANGE WAITSEQ
+    tstage(36)
+    verbose_wait(20)
+    movexz(46.35, 105)
+    verbose_wait(8)
+    movex(52.5)
+
+    #STAGE 4
+
+    tstage(40) ### set to open
+    movez(30)
+    movex(75)
+    movez(100)
+    movez(80)
+    movex(74.5)
+    movez(82.3)
+    movex(74.3)
+    movex(72.8)
+    vac_off()
+    movez(75)
+    movexz_instant(70, 70)
+    verbose_wait(8)
+    movex(60)
+    tstage(45) # flips
+    movex(72.8)
+    movez(82)
+    vac_on()
+    movex(75)
+    movez(60)
+    
+    #STAGE 3
+    
+    movex(52)
+    tstage(30)
+    movez(104.8)
+    movex(50.8)
+    movex(46.35)
+    vac_off()
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(10)
+    tstage(31)
+    movexz_instant(48, 101)
+    verbose_wait(3)
+    movez(105)
+    tstage(33) # set to safe
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(8)
+    tstage(36)
+    verbose_wait(20)
+    movexz(46.35, 105)
+    verbose_wait(8)
+    movex(52.5)
+
+    #PUTDOWN
+
+    movex(53.5)
+    vac_off()
+
+    #ENDSTATE
+    tstage(99)
+    verbose_wait(5)
+    movez(40)
+
+    ##################################
+    #ASSUME
     print " ***** >> END OF SEQUENCE << ***** "
  
 
@@ -177,6 +236,8 @@ def home():
         a = input(" push any key to continue >> ")
     except SyntaxError:
         pass
+
+    '''
     
 #   this part creates the initial value of the vac
     movex_fast(6)
@@ -218,9 +279,9 @@ def home():
         else:
             hip_init = hip_init - hip_inc_0005
             hip_escape_0005 = True
-
+    
         hip_last = hip_init
-        
+    '''    
 isHomed = False
 
 def looper(h = True):

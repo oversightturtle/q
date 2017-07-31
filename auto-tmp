@@ -1,0 +1,92 @@
+    movex(19)
+    movez(97)
+    tstage(26)
+    verbose_wait(4)
+    movez(101)
+    vac_on()
+    movez(97)
+    movexz_instant(9, 45)
+    time.sleep(!!!)
+    tstage(29)
+    movez(20)
+    movex(52)
+
+    #STAGE 3
+    
+    movex(52)
+    tstage(30)
+    movez(104.8)
+    movex(50.8)
+    movex(46.35)
+    vac_off()
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(10)
+    tstage(31)
+    movexz_instant(48, 101)
+    verbose_wait(3)
+    movez(105)
+    tstage(33) # set to safe
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(8)
+    tstage(36)
+    verbose_wait(20)
+    movexz(46.35, 105)
+    verbose_wait(8)
+    movex(52.5)
+
+    #STAGE 4
+
+    tstage(40) ### set to open
+    movez(30)
+    movex(75)
+    movez(100)
+    movez(80)
+    movex(74.5)
+    movez(82.3)
+    movex(74.3)
+    movex(72.8)
+    vac_off()
+    movez(75)
+    movexz_instant(70, 70)
+    verbose_wait(8)
+    movex(60)
+    tstage(45) # flips
+    movex(72.8)
+    movez(82)
+    vac_on()
+    movex(75)
+    movez(60)
+    
+    #STAGE 3
+    
+    movex(52)
+    tstage(30)
+    movez(104.8)
+    movex(50.8)
+    movex(46.35)
+    vac_off()
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(10)
+    tstage(31)
+    movexz_instant(48, 101)
+    verbose_wait(3)
+    movez(105)
+    tstage(33) # set to safe
+    movez(100)
+    movexz_instant(60, 90)
+    verbose_wait(8)
+    tstage(36)
+    verbose_wait(20)
+    movexz(46.35, 105)
+    verbose_wait(8)
+    movex(52.5)
+
+    #ENDSTATE
+
+    movex(53.5)
+    vac_off()
+
+
