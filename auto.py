@@ -131,13 +131,14 @@ def primary():
     tstage(30)
     movez(104.8)
     movex(50.8)
-    movex(46.35)
+    movex(46.35) ## CHECK THIS NUMBER
     vac_off()
     movez(100)
     movexz_instant(60, 90)
     verbose_wait(10)
     tstage(31)
-    movexz_instant(48, 101) ## CHECK BELOW MOVE Y?!?!?
+    #delay?!?!?!!!!!!!!!!!!!
+    movexz_instant(48, 101) ## CHECK BELOW MOVE Y?!?!? MOVE ONLY Y SCREW Z
     verbose_wait(3)
     movez(105)
     tstage(33) # set to safe
