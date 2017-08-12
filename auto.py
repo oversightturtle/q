@@ -112,51 +112,67 @@ def primary():
     verbose_wait(10)
     '''
     
-    movex(19)
+    movex(18.5)
     movez(97)
     tstage(26)
     verbose_wait(4)
     movez(101)
     vac_on()
+    tstage(27)
+    verbose_wait(3)
     movez(97)
-    movexz_instant(9, 50)
+    movexz_instant(9, 73)
     time.sleep(10)
-    tstage(29)
+    tstage(29) # closes and fold safe
     movez(20)
-    movex(52)
+    movex(54)
 
     #STAGE 3
+    #105.35 END
     
-    movex(52)
-    tstage(30)
-    movez(104.8)
-    movex(50.8)
-    movex(46.35) ## CHECK THIS NUMBER
-    vac_off()
-    movez(100)
-    movexz_instant(60, 90)
-    verbose_wait(10)
-    tstage(31)
-    #delay?!?!?!!!!!!!!!!!!!
-    movexz_instant(48, 101) ## CHECK BELOW MOVE Y?!?!? MOVE ONLY Y SCREW Z
-    verbose_wait(3)
-    movez(105)
-    tstage(33) # set to safe
-    movez(100)
-    movexz_instant(60, 90) ### PROBLEM S4 SAFEPLACE PUSHDOWN NOT HIGH ENOUGH
-    # REDO THE STAGE +- 5 LINES
-    verbose_wait(8) # CHANGE WAITSEQ
-    tstage(36)
-    verbose_wait(20)
-    movexz(46.35, 105)
-    verbose_wait(8)
-    movex(52.5)
+    movex(54)
+    tstage(30) # open upplace and load
+    movez(104.5)
+    movex(51.70)
 
+    grbl.write("G0 Y45.55 F100")
+    commit()
+    grbl.write("G0 Z105.3  F9999")
+    commit()
+
+    time.sleep(2) ##
+    
+    tstage(31) # CLOSE LOAD
+    time.sleep(4)
+
+    vac_off()
+
+    movez(90)
+    time.sleep(5)
+
+    movex(55)
+    tstage(32) # upplace close
+    verbose_wait(6)
+    movex(47.85)
+    movez(106) # push down
+    verbose_wait(2)
+    tstage(33) # set to safe
+    verbose_wait(8)
+    movez(90)
+    movex(55)
+
+    tstage(36) # folds actual paper
+    verbose_wait(20)
+    movex(46)
+    movez(105)
+    vac_on()
+    movex(53)
+    
     #STAGE 4
 
     tstage(40) ### set to open
     movez(30)
-    movex(75)
+    movex(75) # RESET THIS NUMBER
     movez(100)
     movez(80)
     movex(74.5)
@@ -165,7 +181,7 @@ def primary():
     movex(72.8)
     vac_off()
     movez(75)
-    movexz_instant(70, 70)
+    movexz_instant(70, 80)
     verbose_wait(8)
     movex(60)
     tstage(45) # flips
@@ -176,29 +192,42 @@ def primary():
     movez(60)
     
     #STAGE 3
+    #105.35 END
     
-    movex(52)
-    tstage(30)
-    movez(104.8)
-    movex(50.8)
-    movex(46.35)
+    movex(53)
+    tstage(30) # open upplace and load
+    movez(104)
+    movex(51.75)
+
+    grbl.write("G0 Y45.8 F100")
+    commit()
+
+    tstage(31) # CLOSE LOAD
+    time.sleep(4)
+
     vac_off()
-    movez(100)
-    movexz_instant(60, 90)
-    verbose_wait(10)
-    tstage(31)
-    movexz_instant(48, 101)
-    verbose_wait(3)
-    movez(105)
+
+    grbl.write("G0 Z90 F9999")
+    commit()
+
+    movex(55)
+    tstage(32) # upplace close
+    verbose_wait(6)
+    movex(48)
+    movez(105) # push down
+    verbose_wait(5)
     tstage(33) # set to safe
-    movez(100)
-    movexz_instant(60, 90)
     verbose_wait(8)
-    tstage(36)
+    movez(90)
+    movex(55)
+
+    tstage(36) # folds actual paper
     verbose_wait(20)
-    movexz(46.35, 105)
-    verbose_wait(8)
-    movex(52.5)
+    movex(46)
+    movez(105)
+    vac_on()
+    movex(53)
+    
 
     #PUTDOWN
 

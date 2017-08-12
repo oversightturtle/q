@@ -1,0 +1,73 @@
+GRBL/TLC > Automater > Welcome!
+
+grbl @ ttyACM0 @ 115200
+
+tlc	[NOT FOUND]
+/home/jun/Dropbox/q/gops.py:74: SyntaxWarning: name 'gloc_x' is used prior to global declaration
+  global gloc_x, gloc_z
+/home/jun/Dropbox/q/gops.py:74: SyntaxWarning: name 'gloc_z' is used prior to global declaration
+  global gloc_x, gloc_z
+
+Welcome! >> availible options:
+auto connect mosfet ( m ) autom noise gtime sen vac mGRBL script ( g mg ) mTLC stage servo servo2 loop init setsafe part s5 s2 test 
+INPUT >> g
+g >> G0 Y18.5 Z97
+found
+g >> g
+found
+g >> G0 Z101
+found
+g >> vac
+g >> G0 Z97
+found
+g >> G0 Z96.5
+found
+g >> G0 Y9 Z73
+found
+g >> G0 Z20
+found
+g >> G0 Y20
+found
+g >> G0 Y40
+found
+g >> G0 Y52
+found
+g >> G0 Z100
+found
+g >> G0 Y55
+found
+g >> G0 Y52
+found
+g >> G0 Y53
+found
+g >> G0 Z104
+found
+g >> G0 Y52.5
+found
+g >> G0 Y52
+found
+g >> G0 Y50
+found
+g >> G0 Y49.5  >> # >> F100
+found
+g >> ; ignore
+found
+g >> G0 Y47
+found
+g >> G0 Y46.8
+found
+g >> G0 Y46.6
+found
+g >> G0 Y46.4
+found
+g >> G0 Y46
+found
+g >> vac
+g >> G0 Z100
+found
+g >> G0 Z95
+found
+g >> G0 Y60
+found
+g >> 
+
