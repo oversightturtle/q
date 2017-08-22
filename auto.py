@@ -125,48 +125,40 @@ def primary():
     time.sleep(10)
     tstage(29) # closes and fold safe
     movez(20)
-    movex(54)
+    movex(52)
 
     #STAGE 3
     #105.35 END
     
-    movex(54)
+    movex(52)
     tstage(30) # open upplace and load
-    movez(104.5)
-    movex(51.70)
-
-    grbl.write("G0 Y45.55 F100")
-    commit()
-    grbl.write("G0 Z105.3  F9999")
-    commit()
-
-    time.sleep(2) ##
-    
+    movez(104.8)
+    movex(50.8)
+    movex(46.50) ## CHECK THIS NUMBER >> CHECKED
     tstage(31) # CLOSE LOAD
     time.sleep(4)
-
     vac_off()
-
-    movez(90)
-    time.sleep(5)
-
+    movez(100)
     movex(55)
+    verbose_wait(5)
     tstage(32) # upplace close
     verbose_wait(6)
-    movex(47.85)
-    movez(106) # push down
-    verbose_wait(2)
+    
+    movex(48)
+    movez(105) # push down
+    verbose_wait(5)
     tstage(33) # set to safe
-    verbose_wait(8)
+    verbose_wait(5)
     movez(90)
-    movex(55)
 
+    movex(55)
     tstage(36) # folds actual paper
     verbose_wait(20)
-    movex(46)
+    movex(46.35)
     movez(105)
+
     vac_on()
-    movex(53)
+    movex(52.5)
     
     #STAGE 4
 
@@ -191,43 +183,38 @@ def primary():
     movex(75)
     movez(60)
     
-    #STAGE 3
-    #105.35 END
     
-    movex(53)
-    tstage(30) # open upplace and load
-    movez(104)
-    movex(51.75)
-
-    grbl.write("G0 Y45.8 F100")
-    commit()
-
+    #STAGE 3
+    
+    movex(52)
+    tstage(30)
+    movez(104.8)
+    movex(50.8)
+    movex(46.50) ## CHECK THIS NUMBER >> CHECKED
     tstage(31) # CLOSE LOAD
     time.sleep(4)
-
     vac_off()
-
-    grbl.write("G0 Z90 F9999")
-    commit()
-
+    movez(100)
     movex(55)
+    verbose_wait(5)
     tstage(32) # upplace close
     verbose_wait(6)
+    
     movex(48)
-    movez(105) # push down
+    movez(105)
     verbose_wait(5)
     tstage(33) # set to safe
-    verbose_wait(8)
+    verbose_wait(5)
     movez(90)
     movex(55)
-
     tstage(36) # folds actual paper
     verbose_wait(20)
-    movex(46)
+    movex(46.35)
     movez(105)
+
     vac_on()
-    movex(53)
-    
+    movex(52.5)
+
 
     #PUTDOWN
 
@@ -262,7 +249,51 @@ def home():
     print "Homing Y axis"
     grbl.write("G28 Y")
     commit()
-    try:
+    try:'''
+    
+#   this part creates the initial value of the vac
+    movex_fast(6)
+
+    # initial z value for homing
+    hip_init = (46.4 + ZOFFSET)
+    # homing increment for each step
+    hip_inc_05= 0.6
+    hip_inc_0005 = 0.15
+    global hip_last
+    hip_escape_05 = False
+    hip_escape_0005 = False
+
+    vac_on()
+
+#0.02 accuracy
+    # obtain hipvalues to 0.6 unit accuracy
+    while hip_escape_05 == False:
+        movez_instant(hip_init)
+        a = raw_input("press enter to continue (no suction), press any key to stop")
+        if a == '':
+            hip_init = hip_init + hip_inc_05
+        else:
+            hip_init = hip_init - hip_inc_05
+            hip_escape_05 = True
+            vac_off()
+            
+        time.sleep(2)
+        movez_instant(hip_init)
+        vac_on()
+        time.sleep(1)
+
+    #obtain hipvalues to 0.15 unit accuracy
+    while hip_escape_0005 == False:
+        movez_instant(hip_init)
+        a = raw_input("press any key to end. press enter to lower")
+        if a == '':
+            hip_init = hip_init + hip_inc_0005
+        else:
+            hip_init = hip_init - hip_inc_0005
+            hip_escape_0005 = True
+    
+        hip_last = hip_init
+    '''    
         a = input(" push any key to continue >> ")
     except SyntaxError:
         pass
