@@ -57,7 +57,7 @@ hip_last = None
 def verbose_wait(delaytime):
     for x in range (0, delaytime):
         time.sleep(1)
-        print "waiting > ", x
+        print "waiting > ", x , "/", delaytime
 
 def primary():
     '''
@@ -144,7 +144,7 @@ def primary():
     tstage(32) # upplace close
     verbose_wait(6)
     
-    movex(48)
+    movex(48) # fix this nuMBER
     movez(105) # push down
     verbose_wait(5)
     tstage(33) # set to safe
@@ -200,7 +200,7 @@ def primary():
     tstage(32) # upplace close
     verbose_wait(6)
     
-    movex(48)
+    movex(48) # FIX THIS NUMBER
     movez(105)
     verbose_wait(5)
     tstage(33) # set to safe
@@ -293,12 +293,14 @@ def home():
             hip_escape_0005 = True
     
         hip_last = hip_init
-    '''    
+    
+        
         a = input(" push any key to continue >> ")
     except SyntaxError:
         pass
+        
 
-    '''
+    
     
 #   this part creates the initial value of the vac
     movex_fast(6)
@@ -342,8 +344,9 @@ def home():
             hip_escape_0005 = True
     
         hip_last = hip_init
-    '''    
+        
 isHomed = False
+'''
 
 def looper(h = True):
     global isHomed
