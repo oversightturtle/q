@@ -12,6 +12,7 @@ if config.con_VIRTUAL == True:
 
 from termcolor import colored
 
+
 def commit():
     "Sends \r\n\r\n to grbl as required for proper functioning"
     try:
@@ -39,6 +40,27 @@ def g_wpcs(axis, location, delay = False):
     '''
     general function to move(g), write,  print, commit, and set
     '''
+
+    if axis == "xz":
+        print ("wpcs >> G1 Y%d Z%d" %(location[0], location[1]))#, colored ( ">> wait: ", "green"),
+    elif axis == "z":
+        print ("wpcs >> G1 %s%s" %(axis.upper(), location)), colored ( ">> wait: ", "green"),
+    elif axis == "x":
+        print ("wpcs >> G1 Y%s" %(location)), colored ( ">> wait: ", "green"),
+    else:
+        raise InvalidValueError('an invalid value was set in IVE')
+
+    if delay == True:
+        if axis == "x":
+            if int(location) <= 100:
+                wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_x *  abs(gloc_x - location))
+            else:
+                print colored("[DANGER] out of bounds", "red")
+        if axis == "z":
+            wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_z * abs(gloc_z - location))
+        print colored (wait, "green")
+        config.workingtime += wait
+
     if axis == "xz":
         grbl.write("G1 Y%d Z%d" %(location[0], location[1]))
 
@@ -50,15 +72,6 @@ def g_wpcs(axis, location, delay = False):
 
     commit()
 
-    if axis == "xz":
-        print ("wpcs >> G1 Y%d Z%d" %(location[0], location[1]))
-    elif axis == "z":
-        print ("wpcs >> G1 %s%s" %(axis.upper(), location))
-    elif axis == "x":
-        print ("wpcs >> G1 Y%s" %(location))
-    else:
-        raise InvalidValueError('an invalid value was set in IVE')
-
     if delay == True:
         if axis == "x":
             if int(location) <= 100:
@@ -69,7 +82,6 @@ def g_wpcs(axis, location, delay = False):
         if axis == "z":
             wait = gloc_tran + (2 * gloc_acc) + (gloc_rate_z * abs(gloc_z - location))
             time.sleep( wait )
-        print " >> ", wait
             
     global gloc_x, gloc_z
     if axis == "x": ## RESET THE VALS

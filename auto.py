@@ -1,6 +1,10 @@
+import sys
 import time
 from gops import *
 from tops import operatestage
+from config import con_VIRTUAL
+
+from config import workingtime
 
 tstage = operatestage
 
@@ -53,11 +57,29 @@ def read_pps():
             return 2
 
 hip_last = None
+
+def restart_line():
+    sys.stdout.write('\r')
+    sys.stdout.flush()
+
+'''
+sys.stdout.write('some data')
+sys.stdout.flush()
+time.sleep(2) # wait 2 seconds...
+restart_line()
+sys.stdout.write('other different data')
+sys.stdout.flush()
+'''
     
 def verbose_wait(delaytime):
+    global workingtime
+    workingtime += delaytime
     for x in range (0, delaytime):
         time.sleep(1)
-        print "waiting > ", x , "/", delaytime
+        print " waiting > ", x , "/", delaytime,
+        restart_line()
+        if x+1 == delaytime:
+            print " "
 
 def primary():
     '''
@@ -72,7 +94,7 @@ def primary():
             cali_escape = True
         elif int(tmp_esc) == 0:
             hip_last == hip_last + 0.02
-
+ 
     print " ***** >> START OF AUTOSEQ << ***** "
     time.sleep(1)
     movez(25 + ZOFFSET)
@@ -81,17 +103,17 @@ def primary():
     vac_off()
     time.sleep(1)
     movez(43 + ZOFFSET)
-
+ 
     movexz_instant(13, 35 + ZOFFSET)
     time.sleep(5)
     tstage(25) # 45 SECONEDS
     verbose_wait(25)# 40 + e
-
+ 
     movex(19)
     movez(96.5)
     tstage(26)
     verbose_wait(15)
-
+ 
     movez_ins_del(101)
     vac_on()
     time.sleep(1)
@@ -99,19 +121,19 @@ def primary():
     tstage(27)
     time.sleep(6)
     ### Z40 UP MOVE SX LOW
-
+ 
     movez_ins_del(98, 2)
     movexz_instant(14, 60)
     time.sleep(6)
     movez(15 + ZOFFSET)
     tstage(29) # END HERE
-    
+     
     # END HERE -- DELETE AFTER
-
+ 
     print "dead ### INTERVENE HERE"
     verbose_wait(10)
     '''
-    
+     
     movex(18.5)
     movez(97)
     tstage(26)
@@ -120,48 +142,62 @@ def primary():
     vac_on()
     tstage(27)
     verbose_wait(3)
-    movez(97)
-    movexz_instant(9, 73)
-    time.sleep(10)
+    movez(90)
+    movex(18)
+    movez(65)
+    movex(10)
+ #   movexz_instant(14, 70)
+ #   time.sleep(10)
     tstage(29) # closes and fold safe
     movez(20)
-    movex(52)
-
+    movex(54)
+ 
     #STAGE 3
     #105.35 END
-    
-    movex(52)
+     
+    movex(54)
     tstage(30) # open upplace and load
-    movez(104.8)
-    movex(50.8)
-    movex(46.50) ## CHECK THIS NUMBER >> CHECKED
+    movez(104.25)
+    movex(51.70)
+ 
+    grbl.write("G0 Y44.65 F100")
+ #   grbl.write("G0 Y45.55 F100") ### CHECK THIS NUMBER
+    commit()
+    time.sleep(4)
+ 
     tstage(31) # CLOSE LOAD
     time.sleep(4)
+     
+    grbl.write("G0 Z105.5  F9999")
+    commit()
+ 
+    time.sleep(2) ##
+ 
     vac_off()
-    movez(100)
-    movex(55)
-    verbose_wait(5)
-    tstage(32) # upplace close
-    verbose_wait(6)
-    
-    movex(48) # fix this nuMBER
-    movez(105) # push down
-    verbose_wait(5)
-    tstage(33) # set to safe
-    verbose_wait(5)
+ 
     movez(90)
-
+    time.sleep(5)
+ 
     movex(55)
+    tstage(32) # upplace close
+    verbose_wait(8)
+    tstage(33) # set to safe
+    verbose_wait(4)
     tstage(36) # folds actual paper
+ 
     verbose_wait(20)
-    movex(46.35)
+    movex(44.65) # FIX DIS NUMBRO CONFIRM MATCH ON F100
     movez(105)
-
     vac_on()
-    movex(52.5)
-    
+ 
+    verbose_wait(2)
+    tstage(37)
+    verbose_wait(5)
+ 
+    movex(53)
+     
     #STAGE 4
-
+ 
     tstage(40) ### set to open
     movez(30)
     movex(75) # RESET THIS NUMBER
@@ -182,54 +218,59 @@ def primary():
     vac_on()
     movex(75)
     movez(60)
-    
-    
+     
     #STAGE 3
-    
-    movex(52)
-    tstage(30)
-    movez(104.8)
-    movex(50.8)
-    movex(46.50) ## CHECK THIS NUMBER >> CHECKED
+    #105.35 END
+     
+    movex(53)
+    tstage(30) # open upplace and load
+    movez(104)
+    movex(51.75)
+ 
+    grbl.write("G0 Y45.8 F100")
+    commit()
+ 
     tstage(31) # CLOSE LOAD
     time.sleep(4)
+ 
     vac_off()
-    movez(100)
+ 
+    grbl.write("G0 Z90 F9999")
+    commit()
+ 
     movex(55)
-    verbose_wait(5)
     tstage(32) # upplace close
     verbose_wait(6)
-    
-    movex(48) # FIX THIS NUMBER
-    movez(105)
+    movex(48)
+    movez(105) # push down
     verbose_wait(5)
     tstage(33) # set to safe
-    verbose_wait(5)
+    verbose_wait(8)
     movez(90)
     movex(55)
+ 
     tstage(36) # folds actual paper
     verbose_wait(20)
-    movex(46.35)
+    movex(46)
     movez(105)
-
     vac_on()
-    movex(52.5)
-
-
+    movex(53)
+     
+ 
     #PUTDOWN
-
+ 
     movex(53.5)
     vac_off()
-
+ 
     #ENDSTATE
     tstage(99)
     verbose_wait(5)
     movez(40)
-
+ 
     ##################################
     #ASSUME
     print " ***** >> END OF SEQUENCE << ***** "
- 
+    print colored(workingtime, "yellow")
 
 def home():
 #startup and homing sequence
@@ -249,12 +290,21 @@ def home():
     print "Homing Y axis"
     grbl.write("G28 Y")
     commit()
-    try:'''
+    try:
+        '''
+
+#vac on/off
+con_VAC = True
+
     
 #   this part creates the initial value of the vac
     movex_fast(6)
 
-    # initial z value for homing
+    # initial z
+
+#vac on/off
+con_VAC = True
+ value for homing
     hip_init = (46.4 + ZOFFSET)
     # homing increment for each step
     hip_inc_05= 0.6
@@ -294,12 +344,14 @@ def home():
     
         hip_last = hip_init
     
-        
+        '''
+
+
         a = input(" push any key to continue >> ")
     except SyntaxError:
         pass
         
-
+'''
     
     
 #   this part creates the initial value of the vac
@@ -343,14 +395,14 @@ def home():
             hip_init = hip_init - hip_inc_0005
             hip_escape_0005 = True
     
-        hip_last = hip_init
-        
+        hip_last = hip_initis
+        '''
 isHomed = False
-'''
+
 
 def looper(h = True):
     global isHomed
-    if (isHomed == False) and h:
+    if (isHomed == False):
         home()
         isHomed = True
     init = False

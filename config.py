@@ -5,3 +5,5 @@ con_VIRTUAL = True
 
 #vac on/off
 con_VAC = True
+
+workingtime = 0
