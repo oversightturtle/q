@@ -157,12 +157,14 @@ def primary():
      
     movex(54)
     tstage(30) # open upplace and load
-    movez(104.25)
+    movez(104.15)
     movex(51.70)
  
-    grbl.write("G0 Y44.65 F100")
- #   grbl.write("G0 Y45.55 F100") ### CHECK THIS NUMBER
+    grbl.write("G0 Y44.7 F100")
     commit()
+
+    tstage(305)
+
     time.sleep(4)
  
     tstage(31) # CLOSE LOAD
@@ -176,7 +178,7 @@ def primary():
     vac_off()
  
     movez(90)
-    time.sleep(5)
+    verbose_wait(2)
  
     movex(55)
     tstage(32) # upplace close
