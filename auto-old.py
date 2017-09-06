@@ -1,7 +1,7 @@
 import sys
 import time
 from gops import *
-from tops import operatestage, operateservo
+from tops import operatestage
 from config import con_VIRTUAL
 
 from config import workingtime
@@ -29,12 +29,6 @@ import config
 
 if config.con_VIRTUAL == True:
     from virtual import grbl, tlc
-
-def head_down():
-    operateservo(19, 467)
-
-def head_up():
-    operateservo(19, 270)
 
 def tlc_initsafe():
     global safeloc
@@ -139,131 +133,94 @@ def primary():
     print "dead ### INTERVENE HERE"
     verbose_wait(10)
     '''
-    
-    head_down()
-
-    movex(18.1)
-    movez(50.5 - 4) # PRESET FOR PUSHDOWN
+     
+    movex(18.5)
+    movez(97)
     tstage(26)
     verbose_wait(4)
-    movez(50.5)
+    movez(101)
     vac_on()
-    verbose_wait(3)
-    movez(40)
     tstage(27)
     verbose_wait(3)
-    movex(17.5)
-    movez(25)
+    movez(90)
+    movex(18)
+    movez(65)
     movex(10)
-#    head_up()    # up to 14 ASSUMED DONE
-    verbose_wait(3)
+ #   movexz_instant(14, 70)
+ #   time.sleep(10)
     tstage(29) # closes and fold safe
-    verbose_wait(10)
-
-    movex(60)
+    movez(20)
+    movex(54)
  
     #STAGE 3
     #105.35 END
      
-    movex(60) #moves way out to prevent conflict
+    movex(54)
     tstage(30) # open upplace and load
-    movez(40)
-    movex(53.5)
-
-    head_down()
-
-    movez(52)
-    movex(51)
-
-    tstage(305)
+    movez(104.15)
+    movex(51.70)
  
-    verbose_wait(1)
-    grbl.write("G0 Y44.4 F100")
+    grbl.write("G0 Y44.7 F100")
     commit()
 
+    tstage(305)
+
     time.sleep(4)
  
- #   tstage(31) # CLOSE LOAD
+    tstage(31) # CLOSE LOAD
     time.sleep(4)
      
-    grbl.write("G0 Z52.2  F9999") #CHECK DIS NUMBER
+    grbl.write("G0 Z105.5  F9999")
     commit()
  
     time.sleep(2) ##
  
     vac_off()
  
-    verbose_wait(2)
-
-    movez(40)
+    movez(90)
     verbose_wait(2)
  
     movex(55)
     tstage(32) # upplace close
     verbose_wait(8)
-    movex(46)
-    movez(52.3)
     tstage(33) # set to safe
-
-    verbose_wait(6)
-
-    movez(40)
-    movex(55)
-
-    verbose_wait(6)
+    verbose_wait(4)
     tstage(36) # folds actual paper
+ 
     verbose_wait(20)
-    movex(44.4) # FIX DIS NUMBRO CONFIRM MATCH ON F100
-    movez(52.5) # CHECK THIS NUMBER MATCH WITH PREZ NUM
+    movex(44.65) # FIX DIS NUMBRO CONFIRM MATCH ON F100
+    movez(105)
     vac_on()
  
     verbose_wait(2)
     tstage(37)
     verbose_wait(5)
-
+ 
     movex(53)
-
-    head_up()
-    movez(20)
-
+     
     #STAGE 4
-
-    movex(77)#x VAL CK
-    head_down()
-    verbose_wait(4)
-    tstage(40)
-    verbose_wait(4)
+ 
+    tstage(40) ### set to open
     movez(30)
-    movez(15)
-    movez(17.9)
-
-    grbl.write("G0 Y73.5 F100")
-    commit()
-    time.sleep(5)
-    time.sleep(4)
-     
-    grbl.write("G0 Z10  F9999") #CHECK DIS NUMBER
-    commit()
-
-    movex(65)
-
-    tstage(45)
-
-    movex(73.5)
-    movez(17.9)
+    movex(75) # RESET THIS NUMBER
+    movez(100)
+    movez(80)
+    movex(74.5)
+    movez(82.3)
+    movex(74.3)
+    movex(72.8)
+    vac_off()
+    movez(75)
+    movexz_instant(70, 80)
+    verbose_wait(8)
+    movex(60)
+    tstage(45) # flips
+    movex(72.8)
+    movez(82)
     vac_on()
-    movex(77)
-    movez(20)
-
-    tstage(37)
-
-    head_up()
-
-
-    print colored(" INTERVENE HERE ! ", "red")
-    verbose_wait(20)
+    movex(75)
+    movez(60)
      
-
     #STAGE 3
     #105.35 END
      

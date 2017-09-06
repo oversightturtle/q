@@ -137,6 +137,13 @@ def script():
 		pass
     elif xs[0] == 'auto':
         looper(True)
+    elif xs[0] == 'head':
+        if xs[1] == 'up':
+            head_up()
+        elif xs[1] == 'down':
+            head_down()
+        else:
+            print "ERROR COMMAND NOT FOUND [U/D]"
     else:
         print "found"
         grbl.write(sc)

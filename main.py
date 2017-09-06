@@ -2,15 +2,19 @@ print "\nGRBL/TLC > Automater > Welcome!\n"
 
 import config
 
+
+from termcolor import colored
+
 if config.con_VIRTUAL == True:
     from virtual import grbl, tlc
+    print colored( "[MASTER] VIRTUAL ON" ,"yellow")   
+
 
 import time
 
 from setup import tty_config
 tty_config()
 
-from termcolor import colored
 
 print "\n",
 
