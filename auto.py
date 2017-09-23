@@ -30,6 +30,10 @@ import config
 if config.con_VIRTUAL == True:
     from virtual import grbl, tlc
 
+def head_overload():
+#    operateservo(19, 480)
+    operateservo(19, 467)
+
 def head_down():
     operateservo(19, 467)
 
@@ -142,10 +146,13 @@ def primary():
     
     head_down()
 
+    movex(14) # WHAT THE FUCK IS THE HEAD DOWQN
+    movez(50.5 - 5) # PRESET FOR PUSHDOWN  FOUR CHANGE
     movex(18.1)
-    movez(50.5 - 4) # PRESET FOR PUSHDOWN
     tstage(26)
-    verbose_wait(4)
+    verbose_wait(2)
+    vac_on()
+    verbose_wait(2)
     movez(50.5)
     vac_on()
     verbose_wait(3)
@@ -155,7 +162,7 @@ def primary():
     movex(17.5)
     movez(25)
     movex(10)
-#    head_up()    # up to 14 ASSUMED DONE
+#    head_up()    # up to 14 ASSUMED DONE ON STAGE 29
     verbose_wait(3)
     tstage(29) # closes and fold safe
     verbose_wait(10)
@@ -177,8 +184,11 @@ def primary():
 
     tstage(305)
  
-    verbose_wait(1)
-    grbl.write("G0 Y44.4 F100")
+    verbose_wait(3) # 44.3 below3
+ 
+ #   movex(45.5)
+
+    grbl.write("G0 Y45.45 F175")
     commit()
 
     time.sleep(4)
@@ -186,7 +196,7 @@ def primary():
  #   tstage(31) # CLOSE LOAD
     time.sleep(4)
      
-    grbl.write("G0 Z52.2  F9999") #CHECK DIS NUMBER
+    grbl.write("G0 Z51.8  F9999") #CHECK DIS NUMBER
     commit()
  
     time.sleep(2) ##
@@ -197,65 +207,77 @@ def primary():
 
     movez(40)
     verbose_wait(2)
- 
+    
+    head_up()
     movex(55)
+    verbose_wait(3)
     tstage(32) # upplace close
     verbose_wait(8)
-    movex(46)
+    head_down()
+    movex(48)
     movez(52.3)
     tstage(33) # set to safe
 
     verbose_wait(6)
 
-    movez(40)
+    movez(40) # HEAD UP
     movex(55)
 
     verbose_wait(6)
     tstage(36) # folds actual paper
-    verbose_wait(20)
-    movex(44.4) # FIX DIS NUMBRO CONFIRM MATCH ON F100
-    movez(52.5) # CHECK THIS NUMBER MATCH WITH PREZ NUM
+    verbose_wait(23)
+    movex(45.45) # FIX DIS NUMBRO CONFIRM MATCH ON F100
+    movez(51.8) # CHECK THIS NUMBER MATCH WITH PREZ NUM
     vac_on()
  
     verbose_wait(2)
     tstage(37)
     verbose_wait(5)
 
-    movex(53)
+    movex(53.75)
 
     head_up()
-    movez(20)
+    movez(2)
 
-    #STAGE 4
+    #STAGE 4 ###########
 
-    movex(77)#x VAL CK
-    head_down()
+    movex(76.9)#x VAL CK
+    head_overload()
     verbose_wait(4)
     tstage(40)
     verbose_wait(4)
-    movez(30)
+    head_down()
+    movez(40)
     movez(15)
-    movez(17.9)
+    movez(17.9) ## CHANGE TO Z30!!!!!!!!!!!
 
-    grbl.write("G0 Y73.5 F100")
+    grbl.write("G0 Y74.5 F175")
     commit()
     time.sleep(5)
+
+    vac_off()
+
     time.sleep(4)
      
-    grbl.write("G0 Z10  F9999") #CHECK DIS NUMBER
+    grbl.write("G0 Z5  F9999") #CHECK DIS NUMBER
     commit()
+    head_up()
+    verbose_wait(4)
 
-    movex(65)
+    movex(65) ## VAC OFF
 
     tstage(45)
 
-    movex(73.5)
-    movez(17.9)
-    vac_on()
-    movex(77)
-    movez(20)
+    verbose_wait(3)
+    head_down()
+    verbose_wait(3)
 
-    tstage(37)
+    movex(74.5) ###
+    movez(30)## CHANGE TO Z18.2 !!!!!!!!!!!!!
+    vac_on()
+    verbose_wait(4)
+    movex(76.9) ###
+    movez(5)
 
     head_up()
 
@@ -264,43 +286,75 @@ def primary():
     verbose_wait(20)
      
 
-    #STAGE 3
+         #STAGE 3
     #105.35 END
      
-    movex(53)
+    movex(60) #moves way out to prevent conflict
     tstage(30) # open upplace and load
-    movez(104)
-    movex(51.75)
+    movez(40)
+    movex(53.5)
+
+    head_down()
+
+    movez(52)
+    movex(51)
+
+    tstage(305)
  
-    grbl.write("G0 Y45.8 F100")
+    verbose_wait(3) # 44.3 below3
+ 
+ #   movex(45.5)
+
+    grbl.write("G0 Y45.45 F175")
+    commit()
+
+    time.sleep(4)
+ 
+ #   tstage(31) # CLOSE LOAD
+    time.sleep(4)
+     
+    grbl.write("G0 Z51.8  F9999") #CHECK DIS NUMBER
     commit()
  
-    tstage(31) # CLOSE LOAD
-    time.sleep(4)
+    time.sleep(2) ##
  
     vac_off()
  
-    grbl.write("G0 Z90 F9999")
-    commit()
- 
+    verbose_wait(2)
+
+    movez(40)
+    verbose_wait(2)
+    
+    head_up()
     movex(55)
+    verbose_wait(3)
     tstage(32) # upplace close
-    verbose_wait(6)
-    movex(48)
-    movez(105) # push down
-    verbose_wait(5)
-    tstage(33) # set to safe
     verbose_wait(8)
-    movez(90)
+    head_down()
+    movex(48)
+    movez(52.3)
+    tstage(33) # set to safe
+
+    verbose_wait(6)
+
+    movez(40) # HEAD UP
     movex(55)
- 
+
+    verbose_wait(6)
     tstage(36) # folds actual paper
-    verbose_wait(20)
-    movex(46)
-    movez(105)
+    verbose_wait(23)
+    movex(45.45) # FIX DIS NUMBRO CONFIRM MATCH ON F100
+    movez(51.8) # CHECK THIS NUMBER MATCH WITH PREZ NUM
     vac_on()
-    movex(53)
-     
+ 
+    verbose_wait(2)
+    tstage(37)
+    verbose_wait(5)
+
+    movex(53.75)
+
+    head_up()
+    movez(2)
  
     #PUTDOWN
  
